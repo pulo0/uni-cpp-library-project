@@ -1,4 +1,4 @@
-CREATE TABLE Book(
+CREATE TABLE IF NOT EXISTS Book(
     id INTEGER PRIMARY KEY,
     title TEXT,
     author TEXT,
@@ -8,14 +8,14 @@ CREATE TABLE Book(
     is_available NUMERIC NOT NULL
 );
 
-CREATE TABLE User(
+CREATE TABLE IF NOT EXISTS User(
     id INTEGER PRIMARY KEY,
     login TEXT NOT NULL,
     password TEXT,
     is_admin NUMERIC NOT NULL
 );
 
-CREATE TABLE Rental(
+CREATE TABLE IF NOT EXISTS Rental(
     id INTEGER PRIMARY KEY,
     id_book INTEGER UNIQUE,
     id_user INTEGER,

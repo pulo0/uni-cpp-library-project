@@ -5,9 +5,12 @@
 
 class User : public UserBase {
 public:
-    void borrow_book(Book* book);
-    void return_book(Book* book);
-    void prolong_book(Book* book);
+    void borrow_book(Book *book);
+
+    void return_book(Book *book);
+
+    void prolong_book(Book *book);
+
     void settle_fees();
 };
 

@@ -6,6 +6,7 @@ class UserBase {
 public:
     std::string login;
     std::string password;
+
     virtual ~UserBase();
 };
 

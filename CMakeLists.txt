@@ -3,6 +3,8 @@ project(library_project)
 
 set(CMAKE_CXX_STANDARD 20)
 
+find_package(SQLite3 REQUIRED)
+
 add_executable(library_project main.cpp
         include/db/DBManager.h
         include/db/DataSet.h
@@ -10,4 +12,8 @@ add_executable(library_project main.cpp
         include/user/User.h
         include/user/Admin.h
         include/structs/Book.h
-        include/auth/Authentication.h)
+        include/auth/Authentication.h
+        src/db/DBManager.cpp
+        src/db/DataSet.cpp)
+
+target_link_libraries(library_project PRIVATE SQLite::SQLite3)
