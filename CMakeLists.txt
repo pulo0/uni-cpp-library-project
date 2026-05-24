@@ -4,6 +4,7 @@ project(library_project)
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(SQLite3 REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 add_executable(library_project main.cpp
         include/db/DBManager.h
@@ -16,4 +17,6 @@ add_executable(library_project main.cpp
         src/db/DBManager.cpp
         src/db/DataSet.cpp)
 
-target_link_libraries(library_project PRIVATE SQLite::SQLite3)
+target_link_libraries(library_project PRIVATE
+        SQLite::SQLite3
+        Qt6::Widgets)
