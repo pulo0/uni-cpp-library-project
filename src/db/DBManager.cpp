@@ -6,7 +6,6 @@
 #include <sstream>
 #include <stdexcept>
 
-const std::string file_path = "../../data/library_sqlite_init.sql";
 
 static std::string load_file(const std::string &path) {
     std::ifstream file(path);
@@ -21,21 +20,24 @@ DBManager &DBManager::getInstance() {
     return instance;
 }
 
-bool DBManager::connect(const std::string &db_path) {
+bool DBManager::connect(const std::string &db_path, const std::string &init_path) {
+    std::cout << "Tries to connect..." << std::endl;
     if (db_) return true;
     try {
         if (sqlite3_open(db_path.c_str(), &db_) != SQLITE_OK) {
             throw std::runtime_error("Failed to open SQLite database");
         }
-        const std::string sql = load_file(file_path);
+        const std::string sql = load_file(init_path);
         char *err = nullptr;
         if (const int rc = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err); rc != SQLITE_OK) {
             const std::string msg = err != nullptr ? err : sqlite3_errmsg(db_);
             sqlite3_free(err);
             throw std::runtime_error(msg);
         }
+        std::cout << "Connected!!!" << std::endl;
         return true;
-    } catch (...) {
+    } catch (const std::exception &e) {
+        std::cerr << "DB Connection Error: " << e.what() << std::endl;
         if (db_) {
             sqlite3_close(db_);
             db_ = nullptr;
@@ -65,4 +67,9 @@ void DBManager::disconnect() {
         sqlite3_close(db_);
         db_ = nullptr;
     }
+}
+
+inline DataSet DBManager::select(const std::string &sql) const {
+    DataSet data(db_, sql);
+    return data;
 }

@@ -9,15 +9,15 @@ class DBManager {
 public:
     static DBManager &getInstance();
 
-    bool connect(const std::string &db_path);
+    bool connect(const std::string &db_path, const std::string &init_path);
 
     void disconnect();
 
-    bool execute(const std::string& sql) const;
+    [[nodiscard]] bool execute(const std::string& sql) const;
 
-    DataSet select(const std::string& sql);
+    [[nodiscard]] inline DataSet select(const std::string& sql) const;
 
-    sqlite3 *raw() const { return db_; }
+    [[nodiscard]] sqlite3 *raw() const { return db_; }
 
 private:
     sqlite3 *db_ = nullptr;
