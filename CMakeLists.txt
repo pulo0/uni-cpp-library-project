@@ -18,7 +18,19 @@ add_executable(library_project main.cpp
         src/db/DBManager.cpp
         src/db/DataSet.cpp
         include/router/AppRouter.h
-        src/router/AppRouter.cpp)
+        src/router/AppRouter.cpp
+        include/pages/MainWindow.h
+        src/pages/MainWindow.cpp
+        src/auth/Authentication.cpp
+        src/user/UserBase.cpp
+        src/user/User.cpp
+        src/utils/SqlUtils.cpp
+        src/utils/StringUtils.cpp
+        include/utils/StringUtils.h
+        include/utils/SqlUtils.h
+        include/consts/Consts.h
+        include/utils/DateUtils.h
+        src/utils/DateUtils.cpp)
 
 target_compile_definitions(library_project PRIVATE PROJECT_ROOT_DIR="${CMAKE_SOURCE_DIR}")
 

@@ -12,7 +12,7 @@ public:
 
     void logout(std::unique_ptr<UserBase> &current_user);
 
-    void reset_password(std::string login, std::string old_password, std::string new_password);
+    void forgot_password(const std::string& login, const std::string& new_password, const std::string &new_password_confirm);
 };
 
 #endif

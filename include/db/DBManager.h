@@ -13,11 +13,11 @@ public:
 
     void disconnect();
 
-    [[nodiscard]] bool execute(const std::string& sql) const;
+    bool execute(const std::string& sql) const;
 
-    [[nodiscard]] inline DataSet select(const std::string& sql) const;
+     DataSet select(const std::string& sql) const;
 
-    [[nodiscard]] sqlite3 *raw() const { return db_; }
+    sqlite3 *raw() const { return db_; }
 
 private:
     sqlite3 *db_ = nullptr;
