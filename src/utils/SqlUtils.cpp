@@ -1,8 +1,7 @@
-#include <string>
-#include <filesystem>
-
 #include "../../include/utils/StringUtils.h"
 #include "../../include/db/DBManager.h"
+#include <string>
+#include <filesystem>
 
 namespace sql_utils {
     /// Helper function providing a SQL literal for variable

@@ -31,7 +31,20 @@ add_executable(library_project main.cpp
         include/consts/Consts.h
         include/utils/DateUtils.h
         src/utils/DateUtils.cpp
-        src/user/Admin.cpp)
+        src/user/Admin.cpp
+        include/pages/LoginPage.h
+        src/pages/LoginPage.cpp
+        src/pages/AdminPage.cpp
+        include/pages/AdminPage.h
+        include/dialogs/BookDialog.h
+        src/dialogs/BookDialog.cpp
+        include/pages/UserMenuPage.h
+        src/pages/UserMenuPage.cpp
+        include/pages/UserAvailablePage.h
+        src/pages/UserAvailablePage.cpp
+        include/pages/UserRentedPage.h
+        src/pages/UserRentedPage.cpp
+)
 
 target_compile_definitions(library_project PRIVATE PROJECT_ROOT_DIR="${CMAKE_SOURCE_DIR}")
 

@@ -9,6 +9,7 @@
 #include "include/db/DBManager.h"
 #include "include/utils/SqlUtils.h"
 #include "include/consts/Consts.h"
+#include "include/pages/MainWindow.h"
 #include "include/utils/DateUtils.h"
 
 /// Initializes connection between the DB.
@@ -50,39 +51,11 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // So smart!
-    auto t = time(nullptr);
-    auto tm = *std::localtime(&t);
-    auto tm1 = tm;
-    tm1.tm_mday += 6;
-    tm1.tm_mon += 9;
-    mktime(&tm1);
-    std::cout << std::put_time(&tm, "%d-%m-%Y") << std::endl;
-    std::cout << std::put_time(&tm1, "%d-%m-%Y") << std::endl;
-    std::cout << std::asctime(&tm1) << std::endl;
-
-    std::string ttoiso = date_utils::to_iso8601_utc(mktime(&tm1));
-    time_t fiso = date_utils::from_iso8601_utc(ttoiso);
-
-    auto tmtm = *std::localtime(&fiso);
-
-    std::cout << std::asctime(&tmtm) << std::endl;
-
-    std::cout << ttoiso << std::endl;
-    std::cout << fiso << std::endl;
-
     // TODO: make a proper router for all the pages to go smoothly
     QApplication app(argc, argv);
 
-    QMainWindow window;
-    auto *button = new QPushButton("Click Here!");
-    window.setCentralWidget(button);
-    window.resize(500, 500);
+    MainWindow window;
     window.show();
 
-    QObject::connect(button, &QPushButton::clicked, [&] {
-        QMessageBox::information(&window, "Hi!", "This is my first QT thingie ever, really");
-    });
-
-    return QApplication::exec();
+    return app.exec();
 }

@@ -1,11 +1,9 @@
 #include "../../include/user/User.h"
-
-#include <ctime>
-#include <iostream>
-
 #include "../../include/db/DBManager.h"
 #include "../../include/utils/DateUtils.h"
 #include "../../include/utils/SqlUtils.h"
+#include <ctime>
+#include <iostream>
 
 std::string generate_due_date(const time_t epoch) {
     auto tm = *std::localtime(&epoch);

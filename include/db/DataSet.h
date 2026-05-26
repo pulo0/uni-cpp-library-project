@@ -11,9 +11,9 @@ public:
 
     bool next() const;
 
-    std::string get_string(const std::string& col_name) const;
+    std::string get_string(const std::string &col_name) const;
 
-    int get_int(const std::string& col_name) const;
+    int get_int(const std::string &col_name) const;
 
     void reset() const;
 

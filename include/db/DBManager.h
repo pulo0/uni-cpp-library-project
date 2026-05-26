@@ -13,9 +13,9 @@ public:
 
     void disconnect();
 
-    bool execute(const std::string& sql) const;
+    bool execute(const std::string &sql) const;
 
-     DataSet select(const std::string& sql) const;
+    DataSet select(const std::string &sql) const;
 
     sqlite3 *raw() const { return db_; }
 

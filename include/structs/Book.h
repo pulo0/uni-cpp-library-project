@@ -16,6 +16,16 @@ static std::string cover_translate(const CoverType &cover) {
     return "unknown";
 }
 
+static CoverType to_cover_translate(const std::string &cover_str) {
+    if (cover_str == "paperback") {
+        return CoverType::Paperback;
+    }
+    if (cover_str == "hardcover") {
+        return CoverType::Hardcover;
+    }
+    return CoverType::Unknown;
+}
+
 class Book {
 public:
     int id;
@@ -26,7 +36,6 @@ public:
     CoverType cover;
     std::string return_date;
     bool is_available;
-    bool is_prolonged;
 };
 
 #endif

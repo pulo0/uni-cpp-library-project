@@ -1,10 +1,8 @@
 #include "../../include/user/Admin.h"
-
-#include <stdexcept>
-#include <iostream>
-
 #include "../../include/db/DBManager.h"
 #include "../../include/utils/SqlUtils.h"
+#include <stdexcept>
+#include <iostream>
 
 void Admin::add_book(const std::string &title, const std::string &author, const std::string &description,
                      const int year_of_publish,
@@ -26,7 +24,7 @@ void Admin::delete_book(const Book *book) {
     const auto &db = DBManager::getInstance();
 
     const std::string delete_rent_sql =
-        "DELETE FROM Rental WHERE id_book = " + std::to_string(book->id) + ";";
+            "DELETE FROM Rental WHERE id_book = " + std::to_string(book->id) + ";";
 
     const std::string delete_book_sql =
             "DELETE FROM Books WHERE id = " + std::to_string(book->id) + ";";

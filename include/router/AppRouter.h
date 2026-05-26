@@ -12,16 +12,16 @@ class AppRouter : public QObject {
     Q_OBJECT;
 
 public:
-    explicit AppRouter(QStackedWidget *stack, QObject* parent = nullptr);
+    explicit AppRouter(QStackedWidget *stack, QObject *parent = nullptr);
 
-    void registerPage(Route r, QWidget* page);
+    void registerPage(Route r, QWidget *page);
 
 public slots:
     void go(Route r);
 
 private:
-    QStackedWidget* stack_ = nullptr;
-    QHash<Route, QWidget*> pages_;
+    QStackedWidget *stack_ = nullptr;
+    QHash<Route, QWidget *> pages_;
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "../../include/auth/Authentication.h"
 
-#include <algorithm>
+#include <iostream>
 
 #include "../../include/db/DBManager.h"
 #include "../../include/user/Admin.h"
@@ -17,16 +17,18 @@ std::unique_ptr<UserBase> Authentication::login(std::string login, std::string p
     const auto &db = DBManager::getInstance();
 
     const std::string sql =
-            "SELECT login, password, is_admin"
-            "FROM Users"
-            "WHERE login =" + sql_utils::literal(login);
+            "SELECT id, login, password, is_admin "
+            "FROM Users "
+            "WHERE login = " + sql_utils::literal(login) + " LIMIT 1;";
 
     const auto rows = db.select(sql);
     if (!rows.next())
         throw std::runtime_error("Invalid login");
 
-    if (const std::string db_password = rows.get_string("password"); db_password != password)
+    if (const std::string db_password = rows.get_string("password"); db_password != password) {
+        std::cerr << "Invalid password: " << password << " != " << db_password << std::endl;
         throw std::runtime_error("Invalid password");
+    }
 
     const bool is_admin = rows.get_int("is_admin");
 
@@ -37,6 +39,7 @@ std::unique_ptr<UserBase> Authentication::login(std::string login, std::string p
     user->id = rows.get_int("id");
     user->login = std::move(login);
     user->password = std::move(password);
+    std::cout << "login: " << login << ": " << rows.get_int("id");
     return user;
 }
 
@@ -46,7 +49,7 @@ std::unique_ptr<UserBase> Authentication::register_user(std::string login, std::
     const auto &db = DBManager::getInstance();
 
     const std::string sql =
-            "INSERT INTO Users (login password is_admin) VALUES ("
+            "INSERT INTO Users (login, password, is_admin) VALUES ("
             + sql_utils::literal(login) + ", " + sql_utils::literal(password) + ", 0);";
 
     if (!db.execute(sql))
@@ -64,7 +67,7 @@ void Authentication::forgot_password(const std::string &login, const std::string
     }
 
     const std::string check_sql =
-            "SELECT * FROM Users WHERE login = " + sql_utils::literal(login) + "LIMIT 1;";
+            "SELECT * FROM Users WHERE login = " + sql_utils::literal(login) + " LIMIT 1;";
     if (const auto rows = db.select(check_sql); !rows.next()) {
         throw std::runtime_error("No available login user to change the password");
     }

@@ -1,6 +1,5 @@
 #include "../../include/db/DBManager.h"
 #include "../../include/utils/StringUtils.h"
-
 #include <sqlite3.h>
 #include <iostream>
 #include <sstream>

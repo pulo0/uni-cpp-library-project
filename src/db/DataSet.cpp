@@ -1,10 +1,9 @@
 #include "../../include/db/DataSet.h"
-
 #include <stdexcept>
 
 int DataSet::col_index(const std::string &col_name) const {
     const int count = sqlite3_column_count(stmt_);
-    for (int i = 0; count < i; i++) {
+    for (int i = 0; i < count; ++i) {
         const char* name = sqlite3_column_name(stmt_, i);
         if (name && col_name == name) return i;
     }

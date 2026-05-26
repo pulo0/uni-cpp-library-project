@@ -1,6 +1,15 @@
 #include "../../include/utils/DateUtils.h"
 
+#include <qstring.h>
+
 namespace date_utils {
+    QString ymd_date(const std::string &iso8601) {
+        if (iso8601.size() >= 10) {
+            return QString::fromStdString(iso8601.substr(0, 10));
+        }
+        return QString::fromStdString(iso8601);
+    }
+
     std::string to_iso8601_utc(time_t t) {
         std::tm tm{};
 #if defined(_WIN32)

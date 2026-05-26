@@ -1,8 +1,7 @@
 #ifndef LIBRARY_PROJECT_AUTHENTICATION_H
 #define LIBRARY_PROJECT_AUTHENTICATION_H
-#include <memory>
-
 #include "../user/UserBase.h"
+#include <memory>
 
 class Authentication {
 public:
@@ -12,7 +11,8 @@ public:
 
     void logout(std::unique_ptr<UserBase> &current_user);
 
-    void forgot_password(const std::string& login, const std::string& new_password, const std::string &new_password_confirm);
+    void forgot_password(const std::string &login, const std::string &new_password,
+                         const std::string &new_password_confirm);
 };
 
 #endif
