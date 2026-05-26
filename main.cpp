@@ -45,13 +45,10 @@ bool db_init(DBManager &manager, char *exe_path) {
 }
 
 int main(int argc, char *argv[]) {
-    auto &db = DBManager::getInstance();
-
-    if (!db_init(db, argv[0])) {
+    if (auto &db = DBManager::getInstance(); !db_init(db, argv[0])) {
         return 1;
     }
 
-    // TODO: make a proper router for all the pages to go smoothly
     QApplication app(argc, argv);
 
     MainWindow window;

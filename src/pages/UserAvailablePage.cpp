@@ -38,7 +38,7 @@ void UserAvailablePage::setup_ui() {
 }
 
 void UserAvailablePage::refresh() {
-    if (const auto *u = dynamic_cast<User *>(user_); !u) return;
+    if (const auto *usr = dynamic_cast<User *>(user_); !usr) return;
 
     const auto &db = DBManager::getInstance();
     const std::string sql =
@@ -68,7 +68,7 @@ void UserAvailablePage::refresh() {
     }
 }
 
-void UserAvailablePage::add_row(int row, const Book &book) {
+void UserAvailablePage::add_row(const int row, const Book &book) {
     const QString cover_str = QString::fromStdString(cover_translate(book.cover));
     table_->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(book.title)));
     table_->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(book.author)));
@@ -79,11 +79,11 @@ void UserAvailablePage::add_row(int row, const Book &book) {
     table_->setCellWidget(row, 4, borrow_btn);
 
     connect(borrow_btn, &QPushButton::clicked, this, [this, book] {
-        const auto *u = dynamic_cast<User *>(user_);
-        if (!u) return;
+        const auto *usr = dynamic_cast<User *>(user_);
+        if (!usr) return;
 
         try {
-            u->borrow_book(&book);
+            usr->borrow_book(&book);
             refresh();
         } catch (const std::exception &exc) {
             std::cerr << "Book borrow failed: " << exc.what() << std::endl;

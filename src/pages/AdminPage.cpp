@@ -25,7 +25,6 @@ void AdminPage::setup_ui() {
         "Title", "Author", "Year", "Available",
         "Client", "Due date", "Edit", "Delete", "Revoke"
     });
-
     table_->horizontalHeader()->setStretchLastSection(true);
     table_->setEditTriggers(QAbstractItemView::NoEditTriggers);
     table_->setSelectionMode(QAbstractItemView::NoSelection);

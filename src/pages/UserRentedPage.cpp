@@ -19,9 +19,9 @@ void UserRentedPage::set_user(UserBase *user) {
 
 void UserRentedPage::setup_ui() {
     table_ = new QTableWidget(this);
-    table_->setColumnCount(6);
+    table_->setColumnCount(7);
     table_->setHorizontalHeaderLabels({
-        "Title", "Author", "Cover", "Prolonged", "Due date", "Prolong"
+        "Title", "Author", "Cover", "Prolonged", "Due date", "Prolong", "Return"
     });
     table_->horizontalHeader()->setStretchLastSection(true);
     table_->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -42,11 +42,8 @@ void UserRentedPage::setup_ui() {
 }
 
 void UserRentedPage::refresh() {
-    auto *u = dynamic_cast<User *>(user_);
-    std::cout << "HERE there!" << std::endl;
+    const auto *u = dynamic_cast<User *>(user_);
     if (!u) return;
-
-    std::cout << "HERE!" << std::endl;
 
     const auto &db = DBManager::getInstance();
 
@@ -58,12 +55,10 @@ void UserRentedPage::refresh() {
             "JOIN Books ON Books.id = Rental.id_book "
             "WHERE Rental.id_user = " + std::to_string(u->id) + ";";
 
-    auto rows = db.select(sql);
+    const auto rows = db.select(sql);
 
     books_.clear();
     table_->setRowCount(0);
-
-    std::cout << "HERE therethere!" << std::endl;
 
     int row_index = 0;
     while (rows.next()) {
@@ -97,15 +92,31 @@ void UserRentedPage::add_row(const int row, const Book &book, const bool is_prol
     prolong_btn->setEnabled(!is_prolonged);
 
     connect(prolong_btn, &QPushButton::clicked, this, [this, book] {
-        auto *u = dynamic_cast<User *>(user_);
-        if (!u) return;
+        auto *usr = dynamic_cast<User *>(user_);
+        if (!usr) return;
 
         try {
-            u->prolong_book(&book);
+            usr->prolong_book(&book);
             refresh();
         } catch (const std::exception &exc) {
             std::cerr << "Book prolong failed: " << exc.what() << std::endl;
             QMessageBox::warning(this, "Book prolong failed", exc.what());
+        }
+    });
+
+    auto *ret_btn = new QPushButton("Return", this);
+    table_->setCellWidget(row, 6, ret_btn);
+
+    connect(ret_btn, &QPushButton::clicked, this, [this, book] {
+        auto *usr = dynamic_cast<User *>(user_);
+        if (!usr) return;
+
+        try {
+            usr->return_book(&book);
+            refresh();
+        } catch (const std::exception &exc) {
+            std::cerr << "Book return failed: " << exc.what() << std::endl;
+            QMessageBox::warning(this, "Book return failed", exc.what());
         }
     });
 }

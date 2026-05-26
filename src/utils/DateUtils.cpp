@@ -1,6 +1,6 @@
 #include "../../include/utils/DateUtils.h"
 
-#include <qstring.h>
+#include <QString>
 
 namespace date_utils {
     QString ymd_date(const std::string &iso8601) {
@@ -10,6 +10,7 @@ namespace date_utils {
         return QString::fromStdString(iso8601);
     }
 
+    /// Note: required to use individually designed time conversions for windows/linux
     std::string to_iso8601_utc(time_t t) {
         std::tm tm{};
 #if defined(_WIN32)
@@ -23,6 +24,10 @@ namespace date_utils {
         return buf_to_str;
     }
 
+    /// conversion from iso8601 to epoch (time_t).
+    /// check for the format's pattern, if it is then proceed to make substrings per
+    /// year, month, day and so on
+    /// Note: required to use individually designed time conversions for windows/linux
     time_t from_iso8601_utc(const std::string &s) {
         // format check from ISO8601: YYYY-MM-DDTHH:MM:SSZ where Z is
         if (s.size() != 20 || s[4] != '-' || s[7] != '-'

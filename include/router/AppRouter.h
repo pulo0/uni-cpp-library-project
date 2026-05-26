@@ -4,7 +4,7 @@
 
 enum class Route {
     LoginPage,
-    UserMain, UserOptions, UserRented, UserAvailable,
+    UserMain, UserRented, UserAvailable,
     AdminPage,
 };
 
