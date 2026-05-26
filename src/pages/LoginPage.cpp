@@ -46,7 +46,6 @@ void LoginPage::validate_input() const {
 }
 
 void LoginPage::on_login_clicked() {
-    std::cout << login_->text().toStdString() << std::endl;
     try {
         auto user = auth_.login(login_->text().toStdString(), passwd_->text().toStdString());
         emit login_success(user.release());

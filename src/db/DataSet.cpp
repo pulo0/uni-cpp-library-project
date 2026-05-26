@@ -4,7 +4,7 @@
 int DataSet::col_index(const std::string &col_name) const {
     const int count = sqlite3_column_count(stmt_);
     for (int i = 0; i < count; ++i) {
-        const char* name = sqlite3_column_name(stmt_, i);
+        const char *name = sqlite3_column_name(stmt_, i);
         if (name && col_name == name) return i;
     }
     return -1;
@@ -24,17 +24,17 @@ bool DataSet::next() const {
     return sqlite3_step(stmt_) == SQLITE_ROW;
 }
 
-int DataSet::get_int(const std::string& col_name) const {
+int DataSet::get_int(const std::string &col_name) const {
     const int index = col_index(col_name);
     if (index < 0) return 0;
     return sqlite3_column_int(stmt_, index);
 }
 
-std::string DataSet::get_string(const std::string& col_name) const {
+std::string DataSet::get_string(const std::string &col_name) const {
     const int index = col_index(col_name);
     if (index < 0) return {};
     const unsigned char *txt = sqlite3_column_text(stmt_, index);
-    return txt ? reinterpret_cast<const char*>(txt) : "";
+    return txt ? reinterpret_cast<const char *>(txt) : "";
 }
 
 void DataSet::reset() const {

@@ -11,8 +11,6 @@ DBManager &DBManager::getInstance() {
 }
 
 bool DBManager::connect(const std::string &db_path, const std::string &init_path) {
-    // TODO: delete after debugging
-    std::cout << "Tries to connect..." << std::endl;
     if (db_) return true;
     try {
         if (sqlite3_open(db_path.c_str(), &db_) != SQLITE_OK) {
@@ -25,8 +23,6 @@ bool DBManager::connect(const std::string &db_path, const std::string &init_path
             sqlite3_free(err);
             throw std::runtime_error(msg);
         }
-        // TODO: delete after debugging
-        std::cout << "Connected!!!" << std::endl;
         return true;
     } catch (const std::exception &exc) {
         std::cerr << "DB Connection Error: " << exc.what() << std::endl;
