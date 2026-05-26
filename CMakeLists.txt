@@ -30,7 +30,8 @@ add_executable(library_project main.cpp
         include/utils/SqlUtils.h
         include/consts/Consts.h
         include/utils/DateUtils.h
-        src/utils/DateUtils.cpp)
+        src/utils/DateUtils.cpp
+        src/user/Admin.cpp)
 
 target_compile_definitions(library_project PRIVATE PROJECT_ROOT_DIR="${CMAKE_SOURCE_DIR}")
 

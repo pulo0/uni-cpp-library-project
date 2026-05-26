@@ -29,8 +29,8 @@ bool DBManager::connect(const std::string &db_path, const std::string &init_path
         // TODO: delete after debugging
         std::cout << "Connected!!!" << std::endl;
         return true;
-    } catch (const std::exception &e) {
-        std::cerr << "DB Connection Error: " << e.what() << std::endl;
+    } catch (const std::exception &exc) {
+        std::cerr << "DB Connection Error: " << exc.what() << std::endl;
         if (db_) {
             sqlite3_close(db_);
             db_ = nullptr;
@@ -49,8 +49,8 @@ bool DBManager::execute(const std::string &sql) const {
             throw std::runtime_error(msg);
         }
         return true;
-    } catch (...) {
-        std::cerr << "SQLite execute failure" << std::endl;
+    } catch (const std::exception &exc) {
+        std::cerr << "SQLite execute failure" << exc.what() << std::endl;
         return false;
     }
 }

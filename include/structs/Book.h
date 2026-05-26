@@ -2,10 +2,23 @@
 #define LIBRARY_PROJECT_BOOK_H
 #include <string>
 
-enum CoverType { Paperback, Hardcover, Unknown };
+enum class CoverType { Paperback, Hardcover, Unknown };
+
+static std::string cover_translate(const CoverType &cover) {
+    switch (cover) {
+        case CoverType::Paperback:
+            return "paperback";
+        case CoverType::Hardcover:
+            return "hardcover";
+        case CoverType::Unknown:
+            break;
+    }
+    return "unknown";
+}
 
 class Book {
 public:
+    int id;
     std::string title;
     std::string author;
     std::string description;

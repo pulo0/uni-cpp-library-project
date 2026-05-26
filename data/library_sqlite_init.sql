@@ -19,9 +19,9 @@ CREATE TABLE IF NOT EXISTS Rental(
     id INTEGER PRIMARY KEY,
     id_book INTEGER UNIQUE,
     id_user INTEGER,
-    return_date TEXT NOT NULL,
+    due_date TEXT NOT NULL,
     is_prolonged NUMERIC NOT NULL,
 
-    FOREIGN KEY (id_book) REFERENCES Book(id),
-    FOREIGN KEY (id_user) REFERENCES User(id)
+    FOREIGN KEY (id_book) REFERENCES Books(id),
+    FOREIGN KEY (id_user) REFERENCES Users(id)
 );

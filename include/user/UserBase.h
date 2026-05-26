@@ -4,6 +4,7 @@
 
 class UserBase {
 public:
+    int id;
     std::string login;
     std::string password;
 

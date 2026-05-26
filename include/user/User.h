@@ -5,13 +5,13 @@
 
 class User : public UserBase {
 public:
-    void borrow_book(Book *book);
+    void borrow_book(const Book *book) const;
 
-    void return_book(Book *book);
+    void return_book(const Book *book);
 
-    void prolong_book(Book *book);
+    void prolong_book(const Book *book);
 
-    void settle_fees();
+    // void settle_fees();
 };
 
 #endif

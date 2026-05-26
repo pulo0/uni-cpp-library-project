@@ -7,7 +7,7 @@
 namespace sql_utils {
     /// Helper function providing a SQL literal for variable
     /// (e.x. 'Adam' or when there's a string like O'Brian, SQL usually uses double ' to escape the character)
-    std::string sql_literal(const std::string &s) {
+    std::string literal(const std::string &s) {
         std::string out = "'";
         for (const char character: s) {
             out += character == '\'' ? "''" : std::string(1, character);

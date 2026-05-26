@@ -19,7 +19,7 @@ std::unique_ptr<UserBase> Authentication::login(std::string login, std::string p
     const std::string sql =
             "SELECT login, password, is_admin"
             "FROM Users"
-            "WHERE login =" + sql_utils::sql_literal(login);
+            "WHERE login =" + sql_utils::literal(login);
 
     const auto rows = db.select(sql);
     if (!rows.next())
@@ -34,6 +34,7 @@ std::unique_ptr<UserBase> Authentication::login(std::string login, std::string p
     if (is_admin) user = std::make_unique<Admin>();
     else user = std::make_unique<User>();
 
+    user->id = rows.get_int("id");
     user->login = std::move(login);
     user->password = std::move(password);
     return user;
@@ -46,7 +47,7 @@ std::unique_ptr<UserBase> Authentication::register_user(std::string login, std::
 
     const std::string sql =
             "INSERT INTO Users (login password is_admin) VALUES ("
-            + sql_utils::sql_literal(login) + ", " + sql_utils::sql_literal(password) + ", 0);";
+            + sql_utils::literal(login) + ", " + sql_utils::literal(password) + ", 0);";
 
     if (!db.execute(sql))
         throw std::runtime_error("DB Insertion Failed: Unable to register a new user");
@@ -63,13 +64,13 @@ void Authentication::forgot_password(const std::string &login, const std::string
     }
 
     const std::string check_sql =
-            "SELECT * FROM Users WHERE login = " + sql_utils::sql_literal(login) + "LIMIT 1;";
+            "SELECT * FROM Users WHERE login = " + sql_utils::literal(login) + "LIMIT 1;";
     if (const auto rows = db.select(check_sql); !rows.next()) {
         throw std::runtime_error("No available login user to change the password");
     }
 
     const std::string update_sql = "UPDATE Users SET password ="
-                                   + sql_utils::sql_literal(new_password) + " WHERE login = " + sql_utils::sql_literal(login) +
+                                   + sql_utils::literal(new_password) + " WHERE login = " + sql_utils::literal(login) +
                                    ";";
 
     if (!db.execute(update_sql)) {
